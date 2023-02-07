@@ -14,15 +14,11 @@ function App() {
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
       <h1 style={{ fontFamily: 'courier'}}>Clubs Menu</h1>
-      <div className="content" style={{ fontFamily: 'courier'}}>
-        
-      </div>
       <Container>
         <FormControl>
         <h1 style={{ fontFamily: 'courier'}}>Club Choice:</h1>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            id="clubChoice"
             value={club}
             label="club"
             onChange={handleChange}
@@ -37,7 +33,6 @@ function App() {
           </Select>
         </FormControl>
         <div><h2>UHM ID:</h2></div>
-        <input type="text" name="uhmid" id="uhmid"></input>
         <form>
           <label>
             <button style={{backgroundColor: "white",
