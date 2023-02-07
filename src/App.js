@@ -45,10 +45,7 @@ function App() {
             </button>
           </label>
         </form>
-        
       </Container>
-
-      
     </div>
     
   );
