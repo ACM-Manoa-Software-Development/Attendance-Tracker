@@ -11,36 +11,45 @@ import {
 
 const AuthContext = React.createContext();
 
-export function useAuth() {
+export function useAuth()
+{
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children })
+{
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function login(email, password) {
+  function login(email, password)
+  {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  function logout() {
+  function logout()
+  {
     return signOut(auth);
   }
 
-  function resetPassword(email) {
+  function resetPassword(email)
+  {
     return sendPasswordResetEmail(auth, email);
   }
 
-  function localUpdateEmail(email) {
+  function localUpdateEmail(email)
+  {
     return updateEmail(currentUser, email);
   }
 
-  function localUpdatePassword(password) {
+  function localUpdatePassword(password)
+  {
     return updatePassword(currentUser, password);
   }
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+  useEffect(() =>
+  {
+    const unsubscribe = onAuthStateChanged(auth, (user) =>
+    {
       setCurrentUser(user);
       setLoading(false);
     });
@@ -48,7 +57,8 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const value = {
+  const value =
+      {
     currentUser,
     login,
     logout,
