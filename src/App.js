@@ -1,26 +1,35 @@
 import * as React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 
 function App() {
   const [club, setClub] = React.useState('');
 
   const handleChange = (event) => {
     setClub(event.target.value);
-    console.log(club);
   };
+
+  const keyPress = (e) => {
+    if(e.keyCode === 13){
+       console.log('value', e.target.value);
+       console.log('date.now', new Date());
+       console.log('club', club)
+       e.target.value = '';
+    }
+ }
 
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
-      <h1 style={{ fontFamily: 'courier'}}>Clubs Menu</h1>
-      <Container>
+      <h1 style={{ fontFamily: 'courier'}}>Attendance Tracker</h1>
+      <p>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
+      <Container style={{ padding: '20px' }}>
         <FormControl>
-        <h1 style={{ fontFamily: 'courier'}}>Club Choice:</h1>
+          <InputLabel id="inputLabel">Event</InputLabel>
           <Select
             id="clubChoice"
             value={club}
-            label="club"
+            label="Club Name"
             onChange={handleChange}
           >
             <MenuItem value={'ballroom'}>Ballroom Dance</MenuItem>
@@ -31,23 +40,10 @@ function App() {
             <MenuItem value={'switch'}>SWITCH</MenuItem>
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
+          <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{marginTop: '20px'}} onKeyDown={keyPress}/>
         </FormControl>
-        <div><h2>UHM ID:</h2></div>
-        <form>
-          <label>
-            <button style={{backgroundColor: "white",
-	                          padding: "15px 32px",
-	                          fontSize: "20px",
-	                          transitionDuration: "0.4s",
-                            border: "2px solid #000000",
-                            borderRadius: "8px",
-                            fontFamily: 'Comic Sans MS'}}>Submit
-            </button>
-          </label>
-        </form>
       </Container>
     </div>
-    
   );
 }
 
