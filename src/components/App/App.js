@@ -19,7 +19,7 @@ function App() {
        console.log('value', e.target.value);
        console.log('date.now', new Date());
        console.log('club', club)
-      writeMemberData(club, e.target.value);
+       writeMemberData(club, e.target.value);
        e.target.value = '';
     }
  }
@@ -32,7 +32,12 @@ function App() {
     const month = date.getMonth();
     const year = date.getFullYear();
     const today = day + '/' + month + '/' + year;
-    const time = date.getTime();
+    let AmPm = ' ';
+    if(date.getHours() < 12)
+      AmPm = 'AM';
+    else
+      AmPm = 'PM';
+    const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
     const docData = {
       date: today,
       event: event,
