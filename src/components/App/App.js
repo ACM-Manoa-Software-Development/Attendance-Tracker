@@ -2,9 +2,10 @@ import * as React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
-import { firestore , setDoc, doc} from '../../firebase';
+import { firestore } from '../../firebase';
+import { doc, setDoc } from "firebase/firestore";
+
 //import * as constants from 'constants';
-export const members = doc(firestore, '/members');
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -18,12 +19,13 @@ function App() {
        console.log('value', e.target.value);
        console.log('date.now', new Date());
        console.log('club', club)
+      writeMemberData(club, e.target.value);
        e.target.value = '';
     }
  }
 
  //problem is somewhere between 27-41, possible also line 7
-
+  const members = doc(firestore, 'members/j3EXRukrBulG5UjIgQTD');
   function writeMemberData(event, id){
     const date = new Date();
     const day = date.getDay();
@@ -33,8 +35,8 @@ function App() {
     const time = date.getTime();
     const docData = {
       date: today,
-      event: this.event,
-      id: this.id,
+      event: event,
+      id: id,
       time: time
     };
     setDoc(members, docData);
