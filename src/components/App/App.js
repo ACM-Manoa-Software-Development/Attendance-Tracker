@@ -2,6 +2,8 @@ import * as React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
+import { firestore, doc, setDoc } from '../../firebase';
+import * as constants from 'constants';
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -18,6 +20,27 @@ function App() {
        e.target.value = '';
     }
  }
+
+ /*
+  const members = doc(firestore, '/members');
+
+  function writeMemberData(event, id){
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const today = day + '/' + month + '/' + year;
+    const time = date.getTime();
+    const docData = {
+      date: today,
+      event: this.event,
+      id: this.id,
+      time: time
+    };
+    setDoc(members, docData);
+  }
+
+  */
 
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
