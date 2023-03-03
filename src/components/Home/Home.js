@@ -3,7 +3,7 @@ import './Home.css';
 import { Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { doc, setDoc, addDoc, getDoc, collection } from "firebase/firestore";
+import { addDoc, getDoc, collection } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
