@@ -3,12 +3,25 @@ import './App.css';
 import { Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { doc, setDoc } from "firebase/firestore";
-
-//import * as constants from 'constants';
+import { doc, setDoc, addDoc, getDoc, collection } from "firebase/firestore";
 
 function App() {
+  /*****************
+   * lines 13-23 are used for time display in the memberData functions
+   *****************/
   const [club, setClub] = React.useState('');
+  const date = new Date();
+  const day = date.getDay();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const today = day + '/' + month + '/' + year;
+  let AmPm = ' ';
+  if(date.getHours() < 12)
+    AmPm = 'AM';
+  else
+    AmPm = 'PM';
+  const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
+  const membersCollection = collection(firestore, 'members');
 
   const handleChange = (event) => {
     setClub(event.target.value);
@@ -19,33 +32,42 @@ function App() {
        console.log('value', e.target.value);
        console.log('date.now', new Date());
        console.log('club', club)
-       writeMemberData(club, e.target.value);
+       addMember(club, e.target.value);
        e.target.value = '';
     }
  }
 
- //problem is somewhere between 27-41, possible also line 7
-  const members = doc(firestore, 'members/j3EXRukrBulG5UjIgQTD');
-  function writeMemberData(event, id){
-    const date = new Date();
-    const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const today = day + '/' + month + '/' + year;
-    let AmPm = ' ';
-    if(date.getHours() < 12)
-      AmPm = 'AM';
-    else
-      AmPm = 'PM';
-    const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
-    const docData = {
+ /*
+
+ Need to finish collection viewing function
+
+  */
+
+  async function readMemberData(docName){
+    const read = await getDoc(docName);
+    if(read.exists()){
+      const readData = read.data();
+      console.log(`Member Data: ${JSON.stringify(readData)}`);
+    }
+  }
+
+  async function addMember(event, id){
+    const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
       id: id,
       time: time
-    };
-    setDoc(members, docData);
+    });
+    console.log(`New member was added at: ${newMemberData.path}`);
   }
+
+  /*
+  db.collection("cities").doc("LA").set({
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+})
+   */
 
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
@@ -61,8 +83,8 @@ function App() {
             onChange={handleChange}
           >
             <MenuItem value={'ballroom'}>Ballroom Dance</MenuItem>
-            <MenuItem value={'game'}>Game Dev</MenuItem>
-            <MenuItem value={'grey'}>Grey Hats</MenuItem>
+            <MenuItem value={'game dev'}>Game Dev</MenuItem>
+            <MenuItem value={'greyhats'}>Grey Hats</MenuItem>
             <MenuItem value={'icspark'}>ICSpark</MenuItem>
             <MenuItem value={'panda'}>PANDA</MenuItem>
             <MenuItem value={'switch'}>SWITCH</MenuItem>
