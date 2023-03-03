@@ -61,14 +61,6 @@ function App() {
     console.log(`New member was added at: ${newMemberData.path}`);
   }
 
-  /*
-  db.collection("cities").doc("LA").set({
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
-})
-   */
-
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
       <h1 style={{ fontFamily: 'courier'}}>Attendance Tracker</h1>
