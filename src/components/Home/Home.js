@@ -6,21 +6,7 @@ import { firestore } from '../../firebase';
 import { doc, setDoc, addDoc, getDoc, collection } from "firebase/firestore";
 
 function App() {
-  /*****************
-   * lines 13-23 are used for time display in the memberData functions
-   *****************/
   const [club, setClub] = React.useState('');
-  const date = new Date();
-  const day = date.getDay();
-  const month = date.getMonth();
-  const year = date.getFullYear();
-  const today = day + '/' + month + '/' + year;
-  let AmPm = ' ';
-  if(date.getHours() < 12)
-    AmPm = 'AM';
-  else
-    AmPm = 'PM';
-  const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
   const membersCollection = collection(firestore, 'members');
 
   const handleChange = (event) => {
@@ -52,6 +38,17 @@ function App() {
   }
 
   async function addMember(event, id){
+    const date = new Date();
+    const day = date.getDay() - 2;
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const today = month + '/' + day + '/' + year;
+    let AmPm = ' ';
+    if(date.getHours() < 12)
+      AmPm = 'AM';
+    else
+      AmPm = 'PM';
+    const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
     const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
