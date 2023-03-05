@@ -142,7 +142,7 @@ function Navbar() {
                 textDecoration: "none",
               }}
             >
-              D50 CRN Portal
+              ACM Manoa Attendance Tracker
             </Typography>
             {currentUser && (
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

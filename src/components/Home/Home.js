@@ -3,22 +3,27 @@ import './Home.css';
 import { Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { doc, setDoc, addDoc, getDoc, collection } from "firebase/firestore";
+import { addDoc, getDoc, collection } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
+  const [otherClub, setOtherClub] = React.useState('');
   const membersCollection = collection(firestore, 'members');
 
   const handleChange = (event) => {
     setClub(event.target.value);
   };
 
+  const handleOtherChange = (event) => {
+    setOtherClub(event.target.value);
+  }
+
   const keyPress = (e) => {
     if(e.keyCode === 13){
        console.log('value', e.target.value);
        console.log('date.now', new Date());
        console.log('club', club)
-       addMember(club, e.target.value);
+       addMember(club === 'other' ? otherClub: club , e.target.value);
        e.target.value = '';
     }
  }
@@ -67,8 +72,9 @@ function App() {
           <InputLabel id="inputLabel">Event</InputLabel>
           <Select
             id="clubChoice"
+            labelId="inputLabel"
             value={club}
-            label="Club Name"
+            label="Event"
             onChange={handleChange}
           >
             <MenuItem value={'ballroom'}>Ballroom Dance</MenuItem>
@@ -79,6 +85,7 @@ function App() {
             <MenuItem value={'switch'}>SWITCH</MenuItem>
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
+          {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{marginTop: '20px'}} onChange={handleOtherChange}/>}
           <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{marginTop: '20px'}} onKeyDown={keyPress}/>
         </FormControl>
       </Container>
