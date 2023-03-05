@@ -30,9 +30,14 @@ function App() {
 
  /*
 
- Need to finish collection viewing function
+TO DO:
+
+ - Need to finish collection viewing page/function (maybe add read function into this new page)
+
+ - Fix up UI
 
   */
+
 
   async function readMemberData(docName){
     const read = await getDoc(docName);
@@ -53,7 +58,13 @@ function App() {
       AmPm = 'AM';
     else
       AmPm = 'PM';
-    const time = (date.getHours() % 12) + ':' + date.getMinutes() + ':' + date.getSeconds() + ' ' + AmPm;
+    let seconds = ' ';
+    if(date.getSeconds() < 10) seconds = '0' + date.getSeconds();
+    else seconds = date.getSeconds();
+    let minutes = ' ';
+    if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
+    else minutes = date.getMinutes();
+    const time = (date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
     const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
