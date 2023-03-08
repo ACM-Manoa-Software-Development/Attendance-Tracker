@@ -49,7 +49,7 @@ TO DO:
 
   async function addMember(event, id){
     const date = new Date();
-    const day = date.getDay() - 2;
+    const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     const today = month + '/' + day + '/' + year;
@@ -64,7 +64,7 @@ TO DO:
     let minutes = ' ';
     if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
     else minutes = date.getMinutes();
-    const time = (date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+    const time = ((date.getHours() == 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
     const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
