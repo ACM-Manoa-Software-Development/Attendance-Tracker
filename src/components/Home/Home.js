@@ -10,11 +10,15 @@ function App() {
   const [otherClub, setOtherClub] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [lookup, setLookup] = React.useState('');
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(0); 
 
   const handleChange = (event) => {
     setClub(event.target.value);
   };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  }
 
   const handleOtherChange = (event) => {
     setOtherClub(event.target.value);
@@ -75,6 +79,7 @@ TO DO:
     const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
+      description: description,
       id: id,
       time: time
     });
@@ -112,6 +117,7 @@ TO DO:
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
           {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{marginTop: '20px'}} onChange={handleOtherChange}/>}
+          <TextField id="description" label="Optional Description" variant="outlined" style={{marginTop: '20px'}} onChange={handleDescriptionChange}/>
           <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{marginTop: '20px'}} onKeyDown={keyPress}/>
         </FormControl>
       </Container>
