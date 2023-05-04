@@ -1,14 +1,16 @@
 import * as React from 'react';
 import './Home.css';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { addDoc, getDoc, collection } from "firebase/firestore";
+import { addDoc, getDoc, collection, getCountFromServer } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
   const [otherClub, setOtherClub] = React.useState('');
-  const membersCollection = collection(firestore, 'members');
+  const [description, setDescription] = React.useState('');
+  const [lookup, setLookup] = React.useState('');
+  const [count, setCount] = React.useState(0);
 
   const handleChange = (event) => {
     setClub(event.target.value);
@@ -16,6 +18,10 @@ function App() {
 
   const handleOtherChange = (event) => {
     setOtherClub(event.target.value);
+  }
+
+  const handleLookupChange = (event) => {
+    setLookup(event.target.value);
   }
 
   const keyPress = (e) => {
@@ -52,7 +58,7 @@ TO DO:
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    const today = month + '/' + day + '/' + year;
+    const today = month + '-' + day + '-' + year;
     let AmPm = ' ';
     if(date.getHours() < 12)
       AmPm = 'AM';
@@ -64,7 +70,8 @@ TO DO:
     let minutes = ' ';
     if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
     else minutes = date.getMinutes();
-    const time = ((date.getHours() == 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+    const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+    const membersCollection = collection(firestore, today+'-'+event);
     const newMemberData = await addDoc(membersCollection, {
       date: today,
       event: event,
@@ -72,6 +79,14 @@ TO DO:
       time: time
     });
     console.log(`New member was added at: ${newMemberData.path}`);
+  }
+
+  async function submitLookup() {
+    const membersCollection = collection(firestore, lookup);
+      const snapshot = await getCountFromServer(membersCollection);
+      let count = snapshot.data().count;
+      console.log('count: ', count);
+      setCount(count);
   }
 
   return (
@@ -100,6 +115,12 @@ TO DO:
           <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{marginTop: '20px'}} onKeyDown={keyPress}/>
         </FormControl>
       </Container>
+      <p>Lookup Attendance at an event, please type event date and name. E.g. if event name was "Career Fair" and the event was on May 3, 2023, type "5-3-2023-Career Fair"</p>
+      <FormControl>
+        <TextField id="lookup count" label="Lookup Attendance" variant="outlined" style={{marginTop: '20px'}} onChange={handleLookupChange}/>
+        <Button onClick={submitLookup}>Submit</Button>
+        <p>Count: {count}</p>
+      </FormControl>
     </div>
   );
 }

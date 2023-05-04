@@ -13,4 +13,3 @@ export const app = initializeApp({
 });
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
-
