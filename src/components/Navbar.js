@@ -54,6 +54,7 @@ function Navbar() {
       <AppBar position="static" style={{ marginBottom: "35px" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            <img src={"/public/acm.jpeg"} alt="ACM" style={{ maxWidth: "100px" }}/>
             <Typography
               variant="h6"
               noWrap
