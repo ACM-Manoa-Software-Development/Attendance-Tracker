@@ -114,7 +114,7 @@ TO DO:
             <MenuItem value={'icspark'}>ICSpark</MenuItem>
             <MenuItem value={'panda'}>PANDA</MenuItem>
             <MenuItem value={'switch'}>SWITCH</MenuItem>
-            <MenuItem value={'general meeting'}>Ballroom Dance</MenuItem>
+            <MenuItem value={'general meeting'}>General Meeting</MenuItem>
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
           {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{marginTop: '20px'}} onChange={handleOtherChange}/>}
