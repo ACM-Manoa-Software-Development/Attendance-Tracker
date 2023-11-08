@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 import { Alert } from "react-bootstrap";
 
+
 const pages = ["edit-profile"];
 const settings = ["edit-profile"];
 
@@ -54,9 +55,9 @@ function Navbar() {
       <AppBar position="static" style={{ marginBottom: "35px" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-{/*
-            <img src="../../public/acm.jpeg" alt="ACM" style={{ maxWidth: "100px" }}/>
-*/}
+{
+            <img src="img/acm_Logo_New.png" alt="ACM" style={{ maxWidth: "80px", maxHeight: "60px", marginRight: "10px" }}/>
+}
             <Typography
               variant="h6"
               noWrap
