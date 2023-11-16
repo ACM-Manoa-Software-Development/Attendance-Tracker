@@ -52,7 +52,7 @@ function Navbar() {
 
   return (
     <div>
-      <AppBar position="static" style={{ marginBottom: "35px" }}>
+      <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
 {

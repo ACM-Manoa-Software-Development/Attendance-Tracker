@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.roundedForm {
+  border-radius: 15px; /* Adjust as needed for desired curvature */
+  padding: 20px;
+  background-color: #ffffff; /* Optional background color */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional shadow for depth */
+
+  margin: auto; /* Center the form within its container */
+  max-width: 800px; /* Max width of the form, adjust as needed */
+  min-height: calc(100vh - 60px);
+
+  display: flex; /* Using flex to align children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Align children in the center */
+  justify-content: center; /* Center content vertically */
+}
