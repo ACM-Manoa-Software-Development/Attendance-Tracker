@@ -96,7 +96,7 @@ TO DO:
 
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
-      <h1 style={{ fontFamily: 'courier'}}>Attendance Tracker</h1>
+      <h1 className={"title"}>Attendance Tracker</h1>
       <p>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
       <Container style={{ padding: '20px' }}>
         <FormControl>

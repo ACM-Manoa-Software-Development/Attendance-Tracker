@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: bogart;
+  src:url('../../../public/fonts/Bogart-Regular-trial.ttf');
+}
+
+@font-face {
+  font-family: montserrat;
+  src:url('../../../public/fonts/Montserrat-VariableFont_wght.ttf');
+}
+
+.title {
+  font-family: bogart;
+  color: black;
+  font-size: xxx-large;
+}
+
+.text-1 {
+  font-family: montserrat;
+  color: black;
+  font-size: medium;
+}
