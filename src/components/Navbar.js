@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 import { Alert } from "react-bootstrap";
+import PersonIcon from '@mui/icons-material/Person';
 
 
 const pages = ["edit-profile"];
@@ -185,7 +186,16 @@ function Navbar() {
                     sx={{ p: 0 }}
                     style={{ textDecoration: "none", color: "white" }}
                   >
-                    My Account
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleOpenNavMenu}
+                      color="inherit"
+                    >
+                      <PersonIcon />
+                    </IconButton>
                   </Button>
                 </Tooltip>
                 <Menu
