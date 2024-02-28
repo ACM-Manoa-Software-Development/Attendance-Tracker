@@ -14,10 +14,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 import { Alert } from "react-bootstrap";
 import PersonIcon from '@mui/icons-material/Person';
-
+import Divider from "@mui/material/Divider";
 
 const pages = ["edit-profile"];
-const settings = ["edit-profile"];
+const settings = ["Edit Profile"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -56,9 +56,11 @@ function Navbar() {
       <AppBar position="static" style={{ marginBottom: "0px" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-{
-            <img src="img/acm_Logo_New.png" alt="ACM" style={{ maxWidth: "80px", maxHeight: "60px", marginRight: "10px" }}/>
-}
+            {
+                <a href={"https://acmmanoa.org/"}>
+                    <img src="img/acm_Logo_New.png" alt="ACM" style={{ maxWidth: "80px", maxHeight: "60px", marginRight: "10px" }}/>
+                </a>
+            }
             <Typography
               variant="h6"
               noWrap
@@ -73,7 +75,7 @@ function Navbar() {
                 textDecoration: "none",
               }}
             >
-              ACM Manoa Attendance Tracker
+              ACM Manoa
             </Typography>
 
             {currentUser && (
@@ -151,30 +153,30 @@ function Navbar() {
             </Typography>
             {currentUser && (
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    <Link
-                      to={`/${page}`}
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      {page}
-                    </Link>
-                  </Button>
-                ))}
-                <MenuItem key="logout" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
-                    <Button
-                      onClick={handleLogout}
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      Log out
-                    </Button>
-                  </Typography>
-                </MenuItem>
+                {/*{pages.map((page) => (*/}
+                {/*  <Button*/}
+                {/*    key={page}*/}
+                {/*    onClick={handleCloseNavMenu}*/}
+                {/*    sx={{ my: 2, color: "white", display: "block" }}*/}
+                {/*  >*/}
+                {/*    <Link*/}
+                {/*      to={`/${page}`}*/}
+                {/*      style={{ textDecoration: "none", color: "white" }}*/}
+                {/*    >*/}
+                {/*      {page}*/}
+                {/*    </Link>*/}
+                {/*  </Button>*/}
+                {/*))}*/}
+                {/*<MenuItem key="logout" onClick={handleCloseUserMenu}>*/}
+                {/*  <Typography textAlign="center">*/}
+                {/*    <Button*/}
+                {/*      onClick={handleLogout}*/}
+                {/*      style={{ textDecoration: "none", color: "white" }}*/}
+                {/*    >*/}
+                {/*      Log out*/}
+                {/*    </Button>*/}
+                {/*  </Typography>*/}
+                {/*</MenuItem>*/}
               </Box>
             )}
 
@@ -214,9 +216,13 @@ function Navbar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
+                    <Typography textAlign="right" sx={{ p: '8px 20px', minWidth: "150px", maxWidth: "250px", fontWeight: 'bold'}}>
+                        {currentUser.email}
+                    </Typography>
+                    <Divider />
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">
+                      <Typography textAlign="right" sx={{ width: '100%' }}>
                         <Link
                           to={`/${setting}`}
                           style={{ textDecoration: "none", color: "black" }}
@@ -226,11 +232,16 @@ function Navbar() {
                       </Typography>
                     </MenuItem>
                   ))}
-                  <MenuItem key="logout" onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
-                      <Button onClick={handleLogout}>Log out</Button>
-                    </Typography>
-                  </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                        <Typography textAlign="right" sx={{ width: '100%', color: 'gray'}}>
+                            Log Out
+                        </Typography>
+                    </MenuItem>
+                  {/*<MenuItem key="logout" onClick={handleCloseUserMenu}>*/}
+                  {/*  <Typography textAlign="center" sx={{ width: '100%' }}>*/}
+                  {/*    <Button onClick={handleLogout}>Log out</Button>*/}
+                  {/*  </Typography>*/}
+                  {/*</MenuItem>*/}
                 </Menu>
               </Box>
             )}
