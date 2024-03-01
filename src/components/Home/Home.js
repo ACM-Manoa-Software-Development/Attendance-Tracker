@@ -58,32 +58,37 @@ TO DO:
   }
 
   async function addMember(event, id){
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const today = month + '-' + day + '-' + year;
-    let AmPm = ' ';
-    if(date.getHours() < 12)
-      AmPm = 'AM';
-    else
-      AmPm = 'PM';
-    let seconds = ' ';
-    if(date.getSeconds() < 10) seconds = '0' + date.getSeconds();
-    else seconds = date.getSeconds();
-    let minutes = ' ';
-    if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
-    else minutes = date.getMinutes();
-    const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
     const membersCollection = collection(firestore, today+'-'+event);
-    const newMemberData = await addDoc(membersCollection, {
-      date: today,
-      event: event,
-      description: description,
-      id: id,
-      time: time
-    });
-    console.log(`New member was added at: ${newMemberData.path}`);
+    if() {
+
+    } else {
+      const date = new Date();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const today = month + '-' + day + '-' + year;
+      let AmPm = ' ';
+      if(date.getHours() < 12)
+        AmPm = 'AM';
+      else
+        AmPm = 'PM';
+      let seconds = ' ';
+      if(date.getSeconds() < 10) seconds = '0' + date.getSeconds();
+      else seconds = date.getSeconds();
+      let minutes = ' ';
+      if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
+      else minutes = date.getMinutes();
+      const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+      const newMemberData = await addDoc(membersCollection, {
+        date: today,
+        event: event,
+        description: description,
+        id: id,
+        time: time
+      });
+      console.log(`New member was added at: ${newMemberData.path}`);
+
+    }
   }
 
   async function submitLookup() {
