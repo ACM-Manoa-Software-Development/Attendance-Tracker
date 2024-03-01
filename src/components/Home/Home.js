@@ -63,10 +63,7 @@ TO DO:
 
     } else {
       const date = new Date();
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      const today = month + '-' + day + '-' + year;
+      const today = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
       let AmPm = ' ';
       if(date.getHours() < 12)
         AmPm = 'AM';
