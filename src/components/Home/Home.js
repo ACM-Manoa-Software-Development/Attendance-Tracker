@@ -96,8 +96,10 @@ TO DO:
 
   return (
     <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
-      <h1 style={{ fontFamily: 'courier'}}>Attendance Tracker</h1>
-      <p>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
+      <div class = "card" style={{backgroundColor: "white"}}>
+        <div class ="right-side-Card">
+      <h1 style={{ fontFamily: 'courier'}}> Attendance Tracker</h1>
+      <p style={{marginLeft: "5px", marginRight: "5px"}}>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
       <Container style={{ padding: '20px' }}>
         <FormControl>
           <InputLabel id="inputLabel">Event</InputLabel>
@@ -117,18 +119,24 @@ TO DO:
             <MenuItem value={'general meeting'}>General Meeting</MenuItem>
             <MenuItem value={'other'}>Other</MenuItem>
           </Select>
-          {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{marginTop: '20px'}} onChange={handleOtherChange}/>}
-          <TextField id="description" label="Optional Description" variant="outlined" style={{marginTop: '20px'}} onChange={handleDescriptionChange}/>
-          <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{marginTop: '20px'}} onKeyDown={keyPress}/>
+          {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{ marginTop: '20px' }} onChange={handleOtherChange}/>}
+          <TextField id="description" label="Optional Description" variant="outlined" style={{ marginTop: '20px' }} onChange={handleDescriptionChange}/>
+          <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{ marginTop: '20px' }} onKeyDown={keyPress}/>
         </FormControl>
       </Container>
-      <p>Lookup Attendance at an event, please type event date and name. E.g. if event name was "Career Fair" and the event was on May 3, 2023, type "5-3-2023-Career Fair"</p>
-      <FormControl>
-        <TextField id="lookup count" label="Lookup Attendance" variant="outlined" style={{marginTop: '20px'}} onChange={handleLookupChange}/>
-        <Button onClick={submitLookup}>Submit</Button>
-        <p>Count: {count}</p>
-      </FormControl>
-    </div>
+          <FormControl>
+            <div>
+              <TextField id="lookup count" label="Lookup Attendance" variant="outlined" style={{ marginBottom: '10px' }} onChange={handleLookupChange}/>
+              <p style={{fontSize: "10px", marginLeft: "5px", marginRight: "5px"}}>Lookup Attendance at an event, please type event date and name. E.g. if event name was "Career Fair" and the event was on May 3, 2023, type "5-3-2023-Career Fair"</p>
+            </div>
+            <div>
+              <button className="submitButton" onClick={submitLookup}>Submit</button>
+              <p>Count: {count}</p>
+            </div>
+          </FormControl>
+        </div>
+      </div>
+</div>
   );
 }
 
