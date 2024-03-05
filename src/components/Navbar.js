@@ -17,7 +17,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Divider from "@mui/material/Divider";
 
 const pages = ["edit-profile"];
-const settings = ["Edit Profile"];
+const settings = ["edit-profile"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -133,7 +133,6 @@ function Navbar() {
                 </Menu>
               </Box>
             )}
-            {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
             <Typography
               variant="h5"
               noWrap
@@ -153,52 +152,41 @@ function Navbar() {
             </Typography>
             {currentUser && (
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {/*{pages.map((page) => (*/}
-                {/*  <Button*/}
-                {/*    key={page}*/}
-                {/*    onClick={handleCloseNavMenu}*/}
-                {/*    sx={{ my: 2, color: "white", display: "block" }}*/}
-                {/*  >*/}
-                {/*    <Link*/}
-                {/*      to={`/${page}`}*/}
-                {/*      style={{ textDecoration: "none", color: "white" }}*/}
-                {/*    >*/}
-                {/*      {page}*/}
-                {/*    </Link>*/}
-                {/*  </Button>*/}
-                {/*))}*/}
-                {/*<MenuItem key="logout" onClick={handleCloseUserMenu}>*/}
-                {/*  <Typography textAlign="center">*/}
-                {/*    <Button*/}
-                {/*      onClick={handleLogout}*/}
-                {/*      style={{ textDecoration: "none", color: "white" }}*/}
-                {/*    >*/}
-                {/*      Log out*/}
-                {/*    </Button>*/}
-                {/*  </Typography>*/}
-                {/*</MenuItem>*/}
               </Box>
             )}
 
             {currentUser && (
               <Box sx={{ flexGrow: 0 }}>
+                {/*Profile dropdown menu*/}
                 <Tooltip title="Open settings">
-                  <Button
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0 }}
-                    style={{ textDecoration: "none", color: "white" }}
-                  >
+                    {/*Styling for profile button*/}
                     <IconButton
+                        onClick={handleOpenUserMenu}
+                        style={{ textDecoration: "none", color: "white" }}
+                        sx={{
+                          position: 'relative',
+                          /* Dropdown arrow */
+                          '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              top: '55%',
+                              right: '4px',
+                              transform: 'translateY(-50%) rotate(180deg)',
+                              width: '0px', //6
+                              height: '0px',
+                              borderLeft: '5px solid transparent', // 1 2 1
+                              borderRight: '5px solid transparent',
+                              borderBottom: '6px solid',
+                        }
+                      }}
                       size="large"
                       aria-label="account of current user"
                       aria-controls="menu-appbar"
                       aria-haspopup="true"
-                      onClick={handleOpenNavMenu}
                       color="inherit"
                     >
                       <PersonIcon />
                     </IconButton>
-                  </Button>
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
@@ -227,7 +215,7 @@ function Navbar() {
                           to={`/${setting}`}
                           style={{ textDecoration: "none", color: "black" }}
                         >
-                          {setting}
+                          Edit Profile
                         </Link>
                       </Typography>
                     </MenuItem>
@@ -237,11 +225,6 @@ function Navbar() {
                             Log Out
                         </Typography>
                     </MenuItem>
-                  {/*<MenuItem key="logout" onClick={handleCloseUserMenu}>*/}
-                  {/*  <Typography textAlign="center" sx={{ width: '100%' }}>*/}
-                  {/*    <Button onClick={handleLogout}>Log out</Button>*/}
-                  {/*  </Typography>*/}
-                  {/*</MenuItem>*/}
                 </Menu>
               </Box>
             )}
@@ -257,3 +240,4 @@ function Navbar() {
   );
 }
 export default Navbar;
+
