@@ -40,9 +40,9 @@
   border-style: inset;
   padding: 5px;
   width: 800px;
-  height: 695px !important;
+  height: 680px !important;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 50px;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -55,7 +55,12 @@
   border-bottom-width: 0;
   width: 400px;
   margin-left: auto;
-  height: 6900px;
+  height: 665px;
+}
+.left-side-Card{
+  width: 400px;
+  margin-right: auto;
+  height: 0px;
 }
 .submitButton {
   width: 195px;
