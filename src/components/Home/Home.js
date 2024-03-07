@@ -3,7 +3,7 @@ import './Home.css';
 import { Button, Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { addDoc, getDoc, collection, getCountFromServer } from "firebase/firestore";
+import { addDoc, doc, getDoc, collection, getCountFromServer } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -59,6 +59,10 @@ TO DO:
 
   async function addMember(event, id){
     const membersCollection = collection(firestore, today+'-'+event);
+
+    const docRef = doc(membersCollection, "id", "SF");
+    const docSnap = await getDoc(docRef);
+
     if() {
 
     } else {
