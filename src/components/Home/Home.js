@@ -58,26 +58,24 @@ TO DO:
   }
 
   async function addMember(event, id){
+    const date = new Date();
+    const today = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     const membersCollection = collection(firestore, today+'-'+event);
-
-    const docRef = doc(membersCollection, "id", "SF");
+    const docRef = doc(membersCollection, "id", id);
     const docSnap = await getDoc(docRef);
 
-    if() {
-
-    } else {
-      const date = new Date();
-      const today = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+    // Create membersCollection in database by creating an if statement for if there are 0 documents
+    if(!(docSnap.exists())) {
       let AmPm = ' ';
-      if(date.getHours() < 12)
+      if (date.getHours() < 12)
         AmPm = 'AM';
       else
         AmPm = 'PM';
       let seconds = ' ';
-      if(date.getSeconds() < 10) seconds = '0' + date.getSeconds();
+      if (date.getSeconds() < 10) seconds = '0' + date.getSeconds();
       else seconds = date.getSeconds();
       let minutes = ' ';
-      if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
+      if (date.getMinutes() < 10) minutes = '0' + date.getMinutes();
       else minutes = date.getMinutes();
       const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
       const newMemberData = await addDoc(membersCollection, {
@@ -88,7 +86,6 @@ TO DO:
         time: time
       });
       console.log(`New member was added at: ${newMemberData.path}`);
-
     }
   }
 
