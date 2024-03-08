@@ -1,12 +1,12 @@
-import React from "react";
+import { React } from "react";
 import { AuthProvider } from "../contexts/AuthContexts";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./Navbar";
-import PrivateRoute from "./PrivateRoute";
-import Home from "./Home/Home";
-import EditProfile from "./EditProfile";
-import Login from "./Login";
-import ForgotPassword from "./ForgotPassword";
+import { Navbar } from "./Navbar";
+import { PrivateRoute } from "./PrivateRoute";
+import { Home } from "./Home/Home";
+import { EditProfile } from "./EditProfile";
+import { Login } from "./Login";
+import { ForgotPassword } from "./ForgotPassword";
 
 
 function App() {
