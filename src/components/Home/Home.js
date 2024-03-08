@@ -3,7 +3,7 @@ import './Home.css';
 import { Button, Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { addDoc, getDoc, collection, getCountFromServer } from "firebase/firestore";
+import { addDoc, getDoc, getDocs, collection, getCountFromServer  } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -34,6 +34,7 @@ function App() {
        console.log('date.now', new Date());
        console.log('club', club)
        addMember(club === 'other' ? otherClub: club , e.target.value);
+
        e.target.value = '';
     }
  }
@@ -57,33 +58,48 @@ TO DO:
     }
   }
 
-  async function addMember(event, id){
+  async function addMember(event, value){
     const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const today = month + '-' + day + '-' + year;
-    let AmPm = ' ';
-    if(date.getHours() < 12)
-      AmPm = 'AM';
-    else
-      AmPm = 'PM';
-    let seconds = ' ';
-    if(date.getSeconds() < 10) seconds = '0' + date.getSeconds();
-    else seconds = date.getSeconds();
-    let minutes = ' ';
-    if(date.getMinutes() < 10) minutes = '0' + date.getMinutes();
-    else minutes = date.getMinutes();
-    const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+    const today = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     const membersCollection = collection(firestore, today+'-'+event);
-    const newMemberData = await addDoc(membersCollection, {
-      date: today,
-      event: event,
-      description: description,
-      id: id,
-      time: time
-    });
-    console.log(`New member was added at: ${newMemberData.path}`);
+    let dupeCount;
+    dupeCount = 0;
+    const querySnapshot = await getDocs(membersCollection);
+    querySnapshot.forEach((doc) =>
+    {
+      if(doc.data().id === value.trim())
+      {
+        dupeCount++;
+      }
+    })
+    console.log("dupe count: %d",dupeCount);
+    if(dupeCount === 0)
+    {
+      let AmPm = ' ';
+      if (date.getHours() < 12)
+        AmPm = 'AM';
+      else
+        AmPm = 'PM';
+      let seconds = ' ';
+      if (date.getSeconds() < 10) seconds = '0' + date.getSeconds();
+      else seconds = date.getSeconds();
+      let minutes = ' ';
+      if (date.getMinutes() < 10) minutes = '0' + date.getMinutes();
+      else minutes = date.getMinutes();
+      const time = ((date.getHours() === 12) ? 12 : date.getHours() % 12) + ':' + minutes + ':' + seconds + ' ' + AmPm;
+      const newMemberData = await addDoc(membersCollection, {
+        date: today,
+        event: event,
+        description: description,
+        id: value,
+        time: time
+      });
+      console.log(`New member was added at: ${newMemberData.path}`);
+    }
+    else
+    {
+      console.log("Member unable to add, duplicates found: %d", dupeCount);
+    }
   }
 
   async function submitLookup() {
