@@ -3,7 +3,7 @@ import './Home.css';
 import { Button, Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
-import { addDoc, doc, getDoc, collection, getCountFromServer } from "firebase/firestore";
+import { addDoc, getDoc, getDocs, collection, getCountFromServer  } from "firebase/firestore";
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -34,6 +34,7 @@ function App() {
        console.log('date.now', new Date());
        console.log('club', club)
        addMember(club === 'other' ? otherClub: club , e.target.value);
+
        e.target.value = '';
     }
  }
@@ -57,15 +58,23 @@ TO DO:
     }
   }
 
-  async function addMember(event, id){
+  async function addMember(event, value){
     const date = new Date();
     const today = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     const membersCollection = collection(firestore, today+'-'+event);
-    const docRef = doc(membersCollection, "id", id);
-    const docSnap = await getDoc(docRef);
-
-    // Create membersCollection in database by creating an if statement for if there are 0 documents
-    if(!(docSnap.exists())) {
+    let dupeCount;
+    dupeCount = 0;
+    const querySnapshot = await getDocs(membersCollection);
+    querySnapshot.forEach((doc) =>
+    {
+      if(doc.data().id === value.trim())
+      {
+        dupeCount++;
+      }
+    })
+    console.log("dupe count: %d",dupeCount);
+    if(dupeCount === 0)
+    {
       let AmPm = ' ';
       if (date.getHours() < 12)
         AmPm = 'AM';
@@ -82,10 +91,14 @@ TO DO:
         date: today,
         event: event,
         description: description,
-        id: id,
+        id: value,
         time: time
       });
       console.log(`New member was added at: ${newMemberData.path}`);
+    }
+    else
+    {
+      console.log("Member unable to add, duplicates found: %d", dupeCount);
     }
   }
 
