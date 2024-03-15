@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import { AuthProvider } from "../contexts/AuthContexts";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
