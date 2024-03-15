@@ -1,9 +1,10 @@
 import * as React from 'react';
 import './Home.css';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import { FormControl, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 import { firestore } from '../../firebase';
 import { addDoc, getDoc, collection, getCountFromServer } from "firebase/firestore";
+import BgImage from "../../img/AttendanceTrackerimg.jpeg";
 
 function App() {
   const [club, setClub] = React.useState('');
@@ -96,55 +97,67 @@ TO DO:
 
   return (
     // eslint-disable-next-line react/style-prop-object
-    <div className="App" style={{ backgroundColor: "rgb(48, 185, 253)"}}>
-      {/*style={{ backgroundColor: "rgb(48, 185, 253)"}}*/}
-      <div class = "card" style={{backgroundColor: 'white'}}>
-        <div class="left-side-Card">
-          <h1 style={{ fontFamily: 'courier', fontSize: "60px", marginLeft: 'auto', marginRight: "auto", marginTop: "50px" }}>ACM</h1>
-          <h1 style={{ fontFamily: 'courier', fontSize: "60px", marginLeft: 'auto', marginRight: "auto" }}>Attendance Tracker</h1>
-          <h2 style={{fontFamily: 'courier', fontSize: "45px", marginLeft: 'auto', marginRight: "auto"}}>(Blah Blah Blah)</h2>
-        </div>
-        <div class="right-side-Card">
-          {/*<h1 style={{ fontFamily: 'courier', fontSize: "60px", marginLeft: 'auto', marginRight: "auto"}}> Attendance Tracker</h1>*/}
-          <p style={{marginTop: "30px", fontSize: "30px"}}>Count: {count}</p>
-          <p style={{ marginLeft: "5px", marginRight: "5px" }}>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
+    <div className="App" style={{
+        backgroundImage: `url(${BgImage}`,
+        backgroundSize: 'cover'
+    }}>
           <Container style={{ padding: '20px' }}>
-            <FormControl>
-              <InputLabel id="inputLabel">Event</InputLabel>
-              <Select
-                id="clubChoice"
-                labelId="inputLabel"
-                value={club}
-                label="Event"
-                onChange={handleChange}
-              >
-                <MenuItem value={'ballroom'}>Ballroom Dance</MenuItem>
-                <MenuItem value={'game dev'}>Game Dev</MenuItem>
-                <MenuItem value={'greyhats'}>Grey Hats</MenuItem>
-                <MenuItem value={'icspark'}>ICSpark</MenuItem>
-                <MenuItem value={'panda'}>PANDA</MenuItem>
-                <MenuItem value={'switch'}>SWITCH</MenuItem>
-                <MenuItem value={'general meeting'}>General Meeting</MenuItem>
-                <MenuItem value={'other'}>Other</MenuItem>
-              </Select>
-              {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{ marginTop: '20px' }} onChange={handleOtherChange}/>}
-              <TextField id="description" label="Optional Description" variant="outlined" style={{ marginTop: '20px' }} onChange={handleDescriptionChange}/>
-              <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{ marginTop: '20px' }} onKeyDown={keyPress}/>
-            </FormControl>
+            <Card>
+              <Card.Body>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ flex: 1 }}>
+                    <h1 style={{ fontFamily: 'courier', fontSize: "60px", marginLeft: 'auto', marginRight: "auto", marginTop: "80px" }}>ACM</h1>
+                    <h1 style={{ fontFamily: 'courier', fontSize: "60px", marginLeft: 'auto', marginRight: "auto" }}>Attendance Tracker</h1>
+                  </div>
+                  <div className={'right-side-Card'} style={{ flex: 1 }}>
+                    <div className="top-section">
+                      <h2 style={{ marginLeft: 'auto', marginRight: 'auto', textDecoration: 'underline' }}>Scan-In</h2>
+                      <p style={{ marginLeft: "auto", marginRight: "auto" }}>Please select an event. After selecting an event click the UHM ID Number box and start scanning IDs. </p>
+                      <FormControl>
+                        <InputLabel id="inputLabel">Event</InputLabel>
+                        <Select
+                          id="clubChoice"
+                          labelId="inputLabel"
+                          value={club}
+                          label="Event"
+                          onChange={handleChange}
+                        >
+                          <MenuItem value={'ballroom'}>Ballroom Dance</MenuItem>
+                          <MenuItem value={'game dev'}>Game Dev</MenuItem>
+                          <MenuItem value={'greyhats'}>Grey Hats</MenuItem>
+                          <MenuItem value={'icspark'}>ICSpark</MenuItem>
+                          <MenuItem value={'panda'}>PANDA</MenuItem>
+                          <MenuItem value={'switch'}>SWITCH</MenuItem>
+                          <MenuItem value={'general meeting'}>General Meeting</MenuItem>
+                          <MenuItem value={'other'}>Other</MenuItem>
+                        </Select>
+                        {club === 'other' && <TextField id="otherClub" label="Other Event Name" variant="outlined" style={{ marginTop: '20px' }} onChange={handleOtherChange}/>}
+                        <TextField id="description" label="Optional Description" variant="outlined" style={{ marginTop: '20px' }} onChange={handleDescriptionChange}/>
+                        <TextField id="uhIdNumber" label="UHM ID Number" variant="outlined" style={{ marginTop: '20px' }} onKeyDown={keyPress}/>
+                      </FormControl>
+                    </div>
+                    <div className="bottom-section" style={{marginTop: '15px'}}>
+                      <h2 style={{ marginRight: 'auto', marginLeft: 'auto', textDecoration: 'underline' }}>Attendee Counter</h2>
+                      <p style={{ fontSize: "30px" }}>Count: {count}</p>
+                      <FormControl>
+                        <div>
+                          <TextField id="lookup count" label="Lookup Attendance" variant="outlined" style={{ marginBottom: '10px' }} onChange={handleLookupChange}/>
+                          <p style={{ fontSize: "10px", marginLeft: "5px", marginRight: "5px" }}>Lookup Attendance at an event, please type event date and name. E.g. if event name was "Career Fair" and the event was on May 3, 2023, type
+                            "5-3-2023-Career Fair"</p>
+                        </div>
+                        <div>
+                          <button className="submitButton" onClick={submitLookup}>Submit</button>
+                          {/*<p>Count: {count}</p>*/}
+                        </div>
+                      </FormControl>
+                    </div>
+                  </div>
+
+                </div>
+
+              </Card.Body>
+            </Card>
           </Container>
-          <FormControl>
-            <div>
-              <TextField id="lookup count" label="Lookup Attendance" variant="outlined" style={{ marginBottom: '10px' }} onChange={handleLookupChange}/>
-              <p style={{ fontSize: "10px", marginLeft: "5px", marginRight: "5px" }}>Lookup Attendance at an event, please type event date and name. E.g. if event name was "Career Fair" and the event was on May 3, 2023, type
-                "5-3-2023-Career Fair"</p>
-            </div>
-            <div>
-              <button className="submitButton" onClick={submitLookup}>Submit</button>
-              {/*<p>Count: {count}</p>*/}
-            </div>
-          </FormControl>
-        </div>
-      </div>
     </div>
   );
 }
